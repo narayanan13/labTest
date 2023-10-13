@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const userDetails = require('../Schema/userSchema');
+const user = require('../Schema/userSchema');
 
 router.post('/addUser', async (req, res)=>{
     console.log("from the req in post api",req.body);
@@ -14,7 +14,7 @@ router.post('/addUser', async (req, res)=>{
             });
         }
         else{
-            const data = new userDetails(req.body);
+            const data = new user(req.body);
             const result = await data.save();
 
             if(result){
@@ -38,7 +38,7 @@ router.post('/addUser', async (req, res)=>{
 });
 
 router.get('/users', async(req,res)=>{
-    const users =await userDetails.find();
+    const users =await user.find();
     if(users){
         res.json({
             users:users
