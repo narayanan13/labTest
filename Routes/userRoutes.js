@@ -6,28 +6,19 @@ router.post('/addUser', async (req, res)=>{
     console.log("from the req in post api",req.body);
     const { userName } = req.body;
     try{
-        const existingUser = await user.findOne({userName});
+        const data = new user(req.body);
+        const result = await data.save();
 
-        if(existingUser){
-            return res.json({
-                message:"User already exists",
+        if(result){
+            res.json({
+                message:"Success",
+                    id: result._id,
             });
         }
         else{
-            const data = new user(req.body);
-            const result = await data.save();
-
-            if(result){
-                res.json({
-                    message:"Success",
-                    id: result._id,
-                });
-            }
-            else{
-                res.json({
-                    message:"Failure",
-                })
-            }
+            res.json({
+                message:"Failure",
+            })
         }
     } catch(err){
         console.log("Error occurred in the API",err);
