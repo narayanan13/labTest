@@ -4,7 +4,6 @@ const user = require('../Schema/userSchema');
 
 router.post('/addUser', async (req, res)=>{
     console.log("from the req in post api",req.body);
-    const { userName } = req.body;
     try{
         const data = new user(req.body);
         const result = await data.save();
